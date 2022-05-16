@@ -243,7 +243,7 @@
 		 treemacs-show-hidden-files t)))
 
 (treemacs-resize-icons 22)
-(treemacs-project-follow-mode t)
+(treemacs-project-follow-mode nil)
 (treemacs-fringe-indicator-mode 'always)
 (treemacs-hide-gitignored-files-mode t)
 #+END_SRC
@@ -285,6 +285,14 @@
 (keymap-global-set "C-c a" 'org-agenda)
 (keymap-global-set "C-c l" 'org-store-link)
 (keymap-global-set "C-c t" 'treemacs)
+
+(global-set-key (kbd "s-w")
+                (defhydra workspace-actions ()
+                  "Workspace actions"
+                  ("w" treemacs-switch-workspace "Switch workspace")
+                  ("e" treemacs-edit-workspaces "Edit workspaces")
+                  ("t" treemacs "Toggle treemacs")
+                  ("c" ace-window "Switch to window")))
 
 (require 'which-key)
 (which-key-mode)
