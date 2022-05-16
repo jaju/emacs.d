@@ -1,0 +1,13 @@
+/**/*~
+/custom.el
+/.eln-cache
+/eln-cache
+/straight
+/.cache
+env
+/recentf
+/**/.lsp-session*
+/auto-save-list
+/themes
+/init.el
+/elpa
