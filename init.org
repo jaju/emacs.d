@@ -269,7 +269,7 @@
 
 (keymap-global-set "C-x u" #'vundo)
 (keymap-global-set "M-`" #'other-window)
-(keymap-global-set "M-<return>" #'toggle-frame-maximized)
+(keymap-global-set "M-s-<return>" #'toggle-frame-maximized)
 (keymap-global-set "M-s-1" #'my/toggle-window-dedicated)
 (keymap-global-set "C-c i" #'my/iterm-here)
 (keymap-global-set "M-s-<left>" 'windmove-left)
