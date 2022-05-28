@@ -43,6 +43,7 @@
  delete-by-moving-to-trash t)      ; use system trash
 
 ;;
+(visual-line-mode)
 (window-divider-mode 1)
 (temp-buffer-resize-mode)
 (setq temp-buffer-max-height 12)
@@ -132,7 +133,8 @@
         typescript-mode
         lsp-java
         kotlin-mode
-        lsp-mode))
+        lsp-mode
+        org-bullets))
 
 (dolist (package package-list)
   (straight-use-package package))
@@ -225,6 +227,37 @@
                      (sequence "TOSCHEDULE" "SCHEDULED" "|" "MEETING-OVER")
                      (sequence "RAW" "REFINE" "|" "IGNORED" "RECORDED")))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((mermaid . t)
+   (clojure . t)
+   (org . t)))
+
+(setq org-confirm-babel-evaluate nil)
+
+;; Look-n-feel
+(use-package org-bullets)
+
+(let* ((variable-tuple
+        (cond
+         ((x-list-fonts "FiraMono Nerd Font") '(:font "FiraMono Nerd Font"))
+         ((x-list-fonts "Fira Code") '(:font "Fira Code")))
+        )
+       (headline `(:inherit fixed-pitch :weight ultra-bold :foreground "yellow" :underline nil)))
+  (custom-theme-set-faces
+   'user
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.2))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1))))))
+
+;; HTML export settings
+(setq
+ org-html-postamble nil)
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (org-bullets-mode 1)
+            (subword-mode 1)
+            (turn-on-visual-line-mode)))
 #+END_SRC
 
 * Treemacs
