@@ -141,6 +141,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   #+END_SRC
 
+* Utility Functions
+#+BEGIN_SRC elisp
+;; Date, time
+(defun ut/now ()
+  "Insert the current timestamp at the cursor position."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%dT%T%:z")))
+(defun ut/today ()
+  "Insert the current timestamp at the cursor position."
+  (interactive)
+  (insert (format-time-string "[%Y-%m-%d %a]")))
+(defun ut/date ()
+  "Insert the current date at the cursor position."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d")))
+#+END_SRC
 * Completions
   
 #+BEGIN_SRC emacs-lisp
@@ -231,9 +247,17 @@
  'org-babel-load-languages
  '((mermaid . t)
    (clojure . t)
-   (org . t)))
+   (org . t)
+   (js . t)))
 
 (setq org-confirm-babel-evaluate nil)
+
+;; Update timestamp when saving, if there is a LASTMOD
+(setq time-stamp-active t
+      time-stamp-start "#\\+LASTMOD:[ \t]*"
+      time-stamp-end "$"
+      time-stamp-format "%Y-%02m-%02dT%02H:%02M:%02S%5z")
+(add-hook 'before-save-hook 'time-stamp nil)
 
 ;; Look-n-feel
 (use-package org-bullets)
@@ -300,6 +324,7 @@
   (interactive)
   (shell-command "open -a iTerm $PWD"))
 
+(keymap-global-set "C-x t" 'ut/today)
 (keymap-global-set "C-x u" #'vundo)
 (keymap-global-set "M-`" #'other-window)
 (keymap-global-set "M-s-<return>" #'toggle-frame-maximized)
