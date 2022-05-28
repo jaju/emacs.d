@@ -1,6 +1,5 @@
 #+TITLE: Emacs Configuration
 #+PROPERTY: header-args:emacs-lisp :tangle ~/.emacs.d/init.el
-
 * Core setup
 
 #+BEGIN_SRC emacs-lisp
@@ -238,7 +237,11 @@
  org-return-follows-link t
  org-src-preserve-indentation t
  org-html-html5-fancy t
- org-src-tab-acts-natively t)
+ org-src-tab-acts-natively t
+ org-ellipsis " …"
+ org-hide-emphasis-markers t
+ org-fontify-quote-and-verse-blocks t
+ org-image-actual-width nil)
 
 (setq
  org-todo-keywords '((sequence "TODO" "WAITING" "|" "DONE" "DELEGATED")
@@ -359,4 +362,7 @@
 
 (require 'which-key)
 (which-key-mode)
+
+(keymap-global-set "C-x C-r" 'consult-recent-file)
+(keymap-global-set "C-x j" 'consult-outline)
 #+end_src
