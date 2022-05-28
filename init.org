@@ -134,7 +134,9 @@
         lsp-java
         kotlin-mode
         lsp-mode
-        org-bullets))
+        org-bullets
+        imenu
+        imenu-list))
 
 (dolist (package package-list)
   (straight-use-package package))
@@ -265,23 +267,31 @@
 (let* ((variable-tuple
         (cond
          ((x-list-fonts "FiraMono Nerd Font") '(:font "FiraMono Nerd Font"))
-         ((x-list-fonts "Fira Code") '(:font "Fira Code")))
-        )
+         ((x-list-fonts "Fira Code") '(:font "Fira Code"))))
        (headline `(:inherit fixed-pitch :weight ultra-bold :foreground "yellow" :underline nil)))
   (custom-theme-set-faces
    'user
    `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.2))))
    `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1))))))
 
-;; HTML export settings
+;; export settings
 (setq
  org-html-postamble nil)
 
+(defun my/org-setup-keys ()
+  (local-set-key "\M-p" 'org-previous-visible-heading)
+  (local-set-key "\M-n" 'org-next-visible-heading)
+  (local-set-key "\M-I" 'org-toggle-inline-images)
+  (local-set-key "\C-t" 'imenu-list-smart-toggle))
+
+(defun my/org-setup ()
+  (setq-local imenu-list-position 'left)
+  (subword-mode 1)
+  (turn-on-visual-line-mode)
+  (my/org-setup-keys))
+
 (add-hook 'org-mode-hook
-          (lambda ()
-            (org-bullets-mode 1)
-            (subword-mode 1)
-            (turn-on-visual-line-mode)))
+          'my/org-setup)
 #+END_SRC
 
 * Treemacs
