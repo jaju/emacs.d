@@ -122,6 +122,7 @@
         hydra
         winum
         vundo
+        ag
         treemacs
         treemacs-evil
         treemacs-projectile
@@ -183,7 +184,8 @@
       #'command-completion-default-include-p)
 
 ;; Enable indentation + completion with TAB
-(setq tab-always-indent 'complete)
+(setq tab-always-indent 'complete
+      tab-first-completion 'word)
 
 ;; cape
 (require 'cape)
@@ -206,7 +208,6 @@
 
 (with-current-buffer (get-buffer-create "*scratch-clj*")
   (clojure-mode))
-
 
 (when (executable-find "bb")
   (corgi/cider-jack-in-babashka))
@@ -238,7 +239,7 @@
  org-src-preserve-indentation t
  org-html-html5-fancy t
  org-src-tab-acts-natively t
- org-ellipsis " …"
+;; org-ellipsis " …"
  org-hide-emphasis-markers t
  org-fontify-quote-and-verse-blocks t
  org-image-actual-width nil)
