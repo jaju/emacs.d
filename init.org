@@ -144,7 +144,7 @@
   #+END_SRC
 
 * Utility Functions
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 ;; Date, time
 (defun ut/now ()
   "Insert the current timestamp at the cursor position."
@@ -338,7 +338,7 @@
   (interactive)
   (shell-command "open -a iTerm $PWD"))
 
-(keymap-global-set "C-x t" 'ut/today)
+(keymap-global-set "C-x t" #'ut/today)
 (keymap-global-set "C-x u" #'vundo)
 (keymap-global-set "M-`" #'other-window)
 (keymap-global-set "M-s-<return>" #'toggle-frame-maximized)
