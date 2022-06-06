@@ -206,11 +206,24 @@
 
 (corgi/enable-cider-connection-indicator)
 
-(with-current-buffer (get-buffer-create "*scratch-clj*")
-  (clojure-mode))
+;(with-current-buffer (get-buffer-create "*scratch-clj*")
+;  (clojure-mode))
 
-(when (executable-find "bb")
-  (corgi/cider-jack-in-babashka))
+;(when (executable-find "bb")
+;  (corgi/cider-jack-in-babashka))
+
+(defun scratch-clj ()
+  (interactive)
+  (if (get-buffer "*scratch-clj*")
+    nil
+  (progn
+    (with-current-buffer (get-buffer-create "*scratch-clj*")
+      (clojure-mode)
+      (when (executable-find "bb")
+        (corgi/cider-jack-in-babashka)))))
+  (switch-to-buffer "*scratch-clj*"))
+
+(keymap-global-set "C-x c" #'scratch-clj)
 #+END_SRC
 
 * General Lisp Editing
@@ -289,10 +302,12 @@
   (local-set-key "\C-t" 'imenu-list-smart-toggle))
 
 (defun my/org-setup ()
-  (setq-local imenu-list-position 'left)
+  (setq-local
+   imenu-list-position 'left)
   (subword-mode 1)
   (turn-on-visual-line-mode)
-  (my/org-setup-keys))
+  (my/org-setup-keys)
+  (org-bullets-mode))
 
 (add-hook 'org-mode-hook
           'my/org-setup)
